@@ -1,0 +1,21 @@
+﻿@model PlantItOut.ViewModels.PlantDetailViewModel
+
+<h1>@Model.Name</h1>
+
+<table class="table">
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <th>Category</th>
+        <td>@Model.Category</td>
+    </tr>
+    <tr>
+        <th>Tags</th>
+        <th>@Model.TagText</th>
+    </tr>
+
+</table>
+
+<a asp-controller="Tag" asp-action="AddPlant" asp-route-id="@Model.PlantId" >Add Plant Tag</a>

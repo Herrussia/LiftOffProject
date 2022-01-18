@@ -1,0 +1,16 @@
+﻿<h1>Delete A Plant</h1>
+
+<form method="post">
+    @foreach (var plant in ViewBag.plants)
+    {
+        <div class="form-group">
+            <label>
+                <span>@plant.Name</span>
+                <input type="checkbox" name="plantIds" value="@plant.Id" class="form-control">
+            </label>
+        </div>
+    }
+
+    <input type="submit" value="Delete Selected Plants" class="btn btn-danger">
+
+</form>
