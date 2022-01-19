@@ -21,6 +21,7 @@ namespace PlantItOut.ViewModels
 
         [Required(ErrorMessage = "Category Required")]
         public int CategoryId { get; set; }
+        public string ImageLink { get; set; }
         public List<SelectListItem> PlantCategories { get; set; }
         public AddPlantViewModel(List<PlantCategory> categories)
         {

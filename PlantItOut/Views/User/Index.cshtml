@@ -1,0 +1,14 @@
+﻿@using PlantItOut.Models
+@model User
+
+<h1>Welcome, @Model.Username!</h1>
+
+<p>
+    <a asp-controller="Search" asp-action="Index">Search for your perfect plant</a>
+</p>
+<p>
+    <a asp-controller="List" asp-action="Index">View all plants</a>
+</p>
+<p>
+    <a asp-controller="PlantCategory" asp-action="Index">View Plants by sorted Category</a>
+</p>

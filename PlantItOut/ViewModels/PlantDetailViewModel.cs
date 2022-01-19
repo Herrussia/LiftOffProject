@@ -10,14 +10,14 @@ namespace PlantItOut.ViewModels
         public string Category { get; set; }
         public string TagText { get; set; }
         public int PlantId { get; set;}
+        //public string Comment { get; set; }
 
-    public PlantDetailViewModel(Plant thePlant, List<PlantTag> plantTags)
+        public PlantDetailViewModel(Plant thePlant, List<PlantTag> plantTags)
     {
         PlantId = thePlant.Id;
         Name = thePlant.Name;
         Description = thePlant.Description;
         Category = thePlant.Category.Name;
-
 
         TagText = "";
 

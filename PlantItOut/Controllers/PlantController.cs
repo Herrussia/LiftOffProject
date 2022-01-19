@@ -45,12 +45,13 @@ namespace PlantItOut.Controllers
                 {
                     Name = addPlantViewModel.Name,
                     Description = addPlantViewModel.Description,
+                    ImageLink = addPlantViewModel.ImageLink,
                     Category = theCategory
                 };
                 context.Plants.Add(newPlant);
                 context.SaveChanges();
 
-            return Redirect("/Plants");
+            return Redirect("/Plant");
             }
 
             return View(addPlantViewModel);
@@ -71,7 +72,7 @@ namespace PlantItOut.Controllers
                 context.Plants.Remove(plant);
             }
             context.SaveChanges();
-            return Redirect("/Plants");
+            return Redirect("/Plant");
         }
 
         public IActionResult Detail(int id)

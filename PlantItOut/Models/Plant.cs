@@ -10,15 +10,19 @@ namespace PlantItOut.Models
         public string Description { get; set; }
         public List<PlantTag> PlantTags { get; set; }
         public PlantCategory Category { get; set; }
+        public string ImageLink { get; set; }
         public int CategoryId { get; set; }
+        //public List<Comment> Comments { get; set; }
+
         public Plant()
         {
         }
 
-        public Plant(string name, string description)
+        public Plant(string name, string description, string imageLink)
         {
             Name = name;
             Description = description;
+            ImageLink = imageLink;
         }
 
         public override string ToString()
