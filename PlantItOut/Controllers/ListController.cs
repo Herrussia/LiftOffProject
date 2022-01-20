@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantItOut.Data;
 using PlantItOut.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
+    /*[Authorize]*/
     public class ListController : Controller
     {
         internal static Dictionary<string, string> ColumnChoices = new Dictionary<string, string>()

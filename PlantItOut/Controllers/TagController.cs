@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using PlantItOut.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PlantItOut.Controllers
 {
+    /*[Authorize]*/
     public class TagController : Controller
     {
         private PlantDbContext context;
@@ -23,6 +25,7 @@ namespace PlantItOut.Controllers
             return View(tags);
         }
 
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Add()
         {
             Tag tag = new Tag();
@@ -30,6 +33,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpPost]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Add(Tag tag)
         {
             if(ModelState.IsValid)
@@ -41,6 +45,7 @@ namespace PlantItOut.Controllers
             return View("Add", tag);
         }
 
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult AddPlant(int id)
         {
             Plant thePlant = context.Plants.Find(id);
@@ -51,6 +56,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpPost]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult AddPlant(AddPlantTagViewModel tagViewModel)
         {
             if (ModelState.IsValid)

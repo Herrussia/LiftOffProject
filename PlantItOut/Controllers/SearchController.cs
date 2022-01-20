@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantItOut.Data;
 using PlantItOut.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
+    /*[Authorize]*/
     public class SearchController : Controller
     {
         private PlantDbContext context;
@@ -103,7 +105,7 @@ namespace PlantItOut.Controllers
                 }
             }
             ViewBag.columns = ListController.ColumnChoices;
-            ViewBag.title = "Jobs with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
+            ViewBag.title = "Plants with " + ListController.ColumnChoices[searchType] + ": " + searchTerm;
             ViewBag.plants = displayPlants;
 
             return View("Index");

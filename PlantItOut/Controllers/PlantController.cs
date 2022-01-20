@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PlantItOut.Data;
 using PlantItOut.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
+    /*[Authorize]*/
     public class PlantController : Controller
     {
         private PlantDbContext context;
@@ -18,6 +20,7 @@ namespace PlantItOut.Controllers
         }
 
         //GET 
+        /*[Authorize]*/
         public IActionResult Index()
         {
             List<Plant> plants = context.Plants
@@ -27,6 +30,7 @@ namespace PlantItOut.Controllers
             return View(plants);
         }
 
+        /*[Authorize(Roles= "Admin")]*/
         public IActionResult Add()
         {
             List<PlantCategory> plants = context.PlantCategories.ToList();
@@ -36,6 +40,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpPost]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Add(AddPlantViewModel addPlantViewModel)
         {
             if (!ModelState.IsValid)
@@ -57,6 +62,7 @@ namespace PlantItOut.Controllers
             return View(addPlantViewModel);
         }
 
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Delete()
         {
             ViewBag.plants = context.Plants.ToList();
@@ -64,6 +70,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpPost]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Delete(int[] plantIds)
         {
             foreach (int plantId in plantIds)
@@ -75,6 +82,7 @@ namespace PlantItOut.Controllers
             return Redirect("/Plant");
         }
 
+    /*[Authorize]*/
         public IActionResult Detail(int id)
         {
             Plant plant = context.Plants

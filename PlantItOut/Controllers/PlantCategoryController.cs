@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PlantItOut.Data;
 using PlantItOut.Models;
 using PlantItOut.ViewModels;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
+    /*[Authorize]*/
     public class PlantCategoryController : Controller
     {
         private PlantDbContext context;
@@ -24,6 +26,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpGet]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult Create()
         {
             AddPlantCategoryViewModel addPlantCategoryViewModel = new AddPlantCategoryViewModel();
@@ -31,6 +34,7 @@ namespace PlantItOut.Controllers
         }
 
         [HttpPost]
+        /*[Authorize(Roles = "Admin")]*/
         public IActionResult ProcessCreatePlantCategoryForm(AddPlantCategoryViewModel addPlantCategoryViewModel)
         {
             if (ModelState.IsValid)
