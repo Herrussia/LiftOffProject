@@ -1,0 +1,13 @@
+﻿@model PlantItOut.ViewModels.AddPlantTagViewModel
+
+<h1>Add Tag to Plant: @Model.Plant.Name</h1>
+
+<form asp-controller="Tag" asp-action="AddPlant" method="post">
+    <input type="hidden" value="@Model.Plant.Id" name="PlantId" />
+    <div class="form-group">
+        <label asp-for="TagId">Tag</label>
+        <select asp-for="TagId" asp-items="Model.Tags"></select>
+        <span asp-validation-for="TagId"></span>
+    </div>
+    <input type="submit" value="Add Tag" />
+</form>

@@ -1,0 +1,16 @@
+﻿@model List<PlantItOut.Models.PlantTag>
+
+@if (Model.Count == 0) 
+    {
+        <h1>No Elements with the given tag</h1>
+    }
+    else
+    {
+        <h1>Plants Tagged: @Model[0].Tag.Name</h1>
+        <ul>
+            @foreach (var plantTag in Model)
+            {
+                <li>@plantTag.Plant.Name</li>
+            }
+        </ul>
+    }

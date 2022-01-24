@@ -1,0 +1,35 @@
+﻿@model PlantItOut.ViewModels.ListViewModel
+
+<div class="container body-content">
+    <h2 class="centered">View Plants By Category</h2>
+
+<table>
+    @if (Model.BeginnerResults.Count >= 1)
+    {
+        @foreach (var plant in Model.BeginnerResults)
+        {
+            <tr>
+                <td><a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a></td>
+            </tr>
+        }
+    }    
+    @if (Model.IntermediateResults.Count >= 1)
+    {
+        @foreach (var plant in Model.IntermediateResults)
+        {
+            <tr>
+                <td><a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a></td>
+            </tr>
+        }
+    }
+    @if (Model.ExpertResults.Count >= 1)
+    {
+        @foreach (var plant in Model.ExpertResults)
+        {
+            <tr>
+                <td><a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a></td>
+            </tr>
+        }
+    }
+</table>
+</div>

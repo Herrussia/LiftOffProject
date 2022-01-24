@@ -1,0 +1,33 @@
+﻿@model PlantItOut.ViewModels.PlantDetailViewModel
+
+<form method="post">
+    <h1>@Model.Name</h1>
+    @*<p>@Url.Content("https://www.chooseyourplant.com/images/plants/epipremnum-aureum-jade-1.jpg")</p>*@
+    <div class="img">
+        <img src="@Model.ImageLink" />
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Description</th>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <th>Category</th>
+            <td>@Model.Category</td>
+        </tr>
+        <tr>
+            <th>Tags</th>
+            <th>@Model.TagText</th>
+        </tr>
+    </table>
+</form>
+
+
+@*
+Figure out how to add a comment option underneath 
+the available plant details so that a user can add and see 
+previous care tips that have been shared on each plant.
+*@  
+
+<h3>Community CareTips</h3>
