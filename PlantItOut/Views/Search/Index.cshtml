@@ -1,44 +1,26 @@
-﻿<div class="container body-content">
+﻿@model PlantItOut.ViewModels.SearchPlantViewModel
 
-    <h1>@ViewBag.title</h1>
+<div class="container body-content">
 
-    <form action="/search/results" method="post">
-        <h2>Search by:</h2>
-
-        <p>
-            @foreach (var column in ViewBag.columns)
-            {
-                <span>
-                    <input type="radio" name="searchType" id="@column.Key" value="@column.Key" checked="@column.Key == 'all'" />
-                    <label for="@column.Key">@column.Value</label>
-                </span>
-            }
-
-        </p>
-
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
-
-        <input type="submit" value="Search" />
-    </form>
-
-    <hr />
-
-    @if (ViewBag.plants != null)
-    {
-        <table>
-            @foreach (var plant in ViewBag.plants)
-            {
-                <tr>
-                    <td>
-                        <p>ID: @plant.PlantId</p>
-                        <p>Name: @plant.Name</p>
-                        <p>Decription: @plant.Description</p>
-                    </td>
-                </tr>
-            }
-        </table>
-    }
+    <h1>Find your perfect Plant!</h1>
+    <div>
+        <form asp-controller="Search" asp-action="Results" method="post">
+            <div>
+                <h6>Search by Tag</h6>
+                @foreach(Tag tag in Model.Tags)
+                {
+                    <label asp-for="Tags">@tag.Name</label>
+                    <input type="checkbox" name="selectedTags" value="@tag.Id">
+                }
+            </div>
+            <br>
+            <h6>OR</h6>
+            <br>
+            <div>
+                <h6>Search By Name</h6>
+                <input type="text" name="PlantName" id="PlantId" />
+            </div>
+            <input type="submit" value="Find Plants" />
+        </form>
+    </div>
 </div>

@@ -12,6 +12,7 @@ namespace PlantItOut.Models
         public PlantCategory Category { get; set; }
         public string ImageLink { get; set; }
         public int CategoryId { get; set; }
+        public int TagId { get; set; }
         //public List<Comment> Comments { get; set; }
 
         public Plant()

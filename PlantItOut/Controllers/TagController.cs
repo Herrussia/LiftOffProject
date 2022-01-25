@@ -50,6 +50,7 @@ namespace PlantItOut.Controllers
         {
             Plant thePlant = context.Plants.Find(id);
             List<Tag> plantTags = context.Tags.ToList();
+
             AddPlantTagViewModel tagViewModel = new AddPlantTagViewModel(thePlant, plantTags);
             return View(tagViewModel);
         }
@@ -82,7 +83,7 @@ namespace PlantItOut.Controllers
             return View(tagViewModel);
         }
 
-        public IActionResult Detail(int id)
+        /*public IActionResult Detail(int id)
         {
             List<PlantTag> plantTags = context.PlantTags
                 .Where(pt => pt.TagId == id)
@@ -91,6 +92,17 @@ namespace PlantItOut.Controllers
                 .ToList();
 
             return View(plantTags);
+        }*/
+
+        public IActionResult Delete(int[] tagIds)
+        {
+            foreach(int tagId in tagIds)
+            {
+                Tag tags = context.Tags.Find(tagId);
+                context.Tags.Remove(tags);
+            }
+            context.SaveChanges();
+            return View();
         }
     }
 }

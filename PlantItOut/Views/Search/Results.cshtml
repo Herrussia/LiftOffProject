@@ -1,0 +1,28 @@
+﻿
+
+<div>
+    <h4>Search Results</h4>
+    <a asp-controller="Search" asp-action="Index">Try another search</a>
+    @if (Model.PlantResults.Count >= 1)
+    {
+        <table>
+            <tr>
+                <th>Plant Name</th>
+                <th>Description</th>
+                <th>Category</th>
+            </tr>
+            @foreach (Plant plant in Model.PlantResults)
+            {
+                <tr>
+                    <td>@plant.Name</td>
+                    <td>@plant.Description</td>
+                    <td>@plant.Category</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h4>No Results</h4>
+    }
+</div>

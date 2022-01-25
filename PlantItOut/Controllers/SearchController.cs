@@ -22,93 +22,56 @@ namespace PlantItOut.Controllers
         //GET
         public IActionResult Index()
         {
-            ViewBag.columns = ListController.ColumnChoices;
-            return View();
+            List<Tag> tags = context.Tags.ToList();
+            /*ViewBag.columns = ListController.ColumnChoices;*/
+            SearchPlantViewModel viewModel = new SearchPlantViewModel(tags);
+            return View(viewModel);
         }
 
-        public IActionResult Results(string searchType, string searchTerm)
+        public IActionResult Results(string searchTerm, string[] selectedTags)
         {
-            List<Plant> plants;
+            List<Plant> plants = context.Plants.ToList();
+            List<Plant> plantResults = new List<Plant>();
             List<PlantDetailViewModel> displayPlants = new List<PlantDetailViewModel>();
 
             if (string.IsNullOrEmpty(searchTerm))
             {
-                plants = context.Plants
-                    .Include(p => p.Category)
-                    .ToList();
-
-                foreach (var plant in plants)
+                foreach (Plant plant in plants)
                 {
-                    List<PlantTag> plantTags = context.PlantTags
-                        .Where(pt => pt.PlantId == plant.Id)
-                        .Include(pt => pt.Tag)
-                        .ToList();
-
-                    PlantDetailViewModel newDisplayPlant = new PlantDetailViewModel(plant, plantTags);
+                    if (plant.Name == searchTerm)
+                    {
+                        Plant results = plant;
+                        plants.Add(results);
+                    }
                 }
             }
             else
             {
-                if (searchType == "beginner")
+                foreach (string tag in selectedTags)
                 {
-                    plants = context.Plants
-                        .Include(p => p.Category)
-                        .Where(p => p.Category.Name == searchTerm)
+                    List<PlantTag> tags = context.PlantTags
+                        .Where(pt => pt.TagId == int.Parse(tag))
                         .ToList();
 
-                    foreach (Plant plant in plants)
+                    foreach (PlantTag plantTag in tags)
                     {
-                        List<PlantTag> plantTags = context.PlantTags
-                            .Where(pt => pt.PlantId == plant.Id)
-                            .Include(pt => pt.Tag)
+                        List<Plant> results = context.Plants
+                            .Where(p => p.Id == plantTag.PlantId)
                             .ToList();
-
-                        PlantDetailViewModel newDisplayPlant = new PlantDetailViewModel(plant, plantTags);
-                        displayPlants.Add(newDisplayPlant);
+                        foreach (Plant plant in plantResults)
+                        {
+                            if (!plantResults.Contains(plant)){
+                                plantResults.Add(plant);
+                            }
+                        }
                     }
                 }
-                else if (searchType == "intermediate")
-                {
-                    plants = context.Plants
-                        .Include(p => p.Category)
-                        .Where(p => p.Category.Name == searchTerm)
-                        .ToList();
-
-                    foreach (Plant plant in plants)
-                    {
-                        List<PlantTag> plantTags = context.PlantTags
-                            .Where(pt => pt.PlantId == plant.Id)
-                            .Include(pt => pt.Tag)
-                            .ToList();
-
-                        PlantDetailViewModel newDisplayPlant = new PlantDetailViewModel(plant, plantTags);
-                        displayPlants.Add(newDisplayPlant);
-                    }
-                }
-                else if (searchType == "expert")
-                {
-                    plants = context.Plants
-                        .Include(p => p.Category)
-                        .Where(p => p.Category.Name == searchTerm)
-                        .ToList();
-
-                    foreach (Plant plant in plants)
-                    {
-                        List<PlantTag> plantTags = context.PlantTags
-                            .Where(pt => pt.PlantId == plant.Id)
-                            .Include(pt => pt.Tag)
-                            .ToList();
-
-                        PlantDetailViewModel newDisplayPlant = new PlantDetailViewModel(plant, plantTags);
-                        displayPlants.Add(newDisplayPlant);
-                    }
-                }
+                ViewBag.columns = ListController.ColumnChoices;
+                ViewBag.plants = displayPlants;
             }
-            ViewBag.columns = ListController.ColumnChoices;
-            ViewBag.title = "Plants with: " + ListController.ColumnChoices[searchType] + searchTerm;
-            ViewBag.plants = displayPlants;
-
-            return View("Index");
+            ResultsViewModel viewModel = new ResultsViewModel(plantResults);
+            return View("Results", viewModel);
         }
     }
 }
+
