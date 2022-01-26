@@ -2,7 +2,6 @@
 
 <form method="post">
     <h1>@Model.Name</h1>
-    @*<p>@Url.Content("https://www.chooseyourplant.com/images/plants/epipremnum-aureum-jade-1.jpg")</p>*@
     <div class="img">
         <img src="@Model.ImageLink" width="400" height="600"/>
     </div>
@@ -21,6 +20,7 @@
             <td>@Model.TagText</td>
         </tr>
     </table>
+    <a asp-controller="Tag" asp-action="AddPlant" asp-route-id="@Model.PlantId">Add Tags to Plant</a>
 </form>
 
 
@@ -30,4 +30,4 @@ the available plant details so that a user can add and see
 previous care tips that have been shared on each plant.
 *@  
 
-<h3>Community CareTips</h3>
+@*<h3>Community CareTips</h3>*@

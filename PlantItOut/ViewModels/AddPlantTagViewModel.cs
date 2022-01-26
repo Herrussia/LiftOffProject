@@ -7,10 +7,7 @@ namespace PlantItOut.ViewModels
 {
     public class AddPlantTagViewModel
     {
-        [Required(ErrorMessage = "Plant is required")]
         public int PlantId { get; set; }
-
-        [Required(ErrorMessage = "Tag is required")]
         public int TagId { get; set; }
         public Plant Plant { get; set; }
         public List<SelectListItem> Tags { get; set; }

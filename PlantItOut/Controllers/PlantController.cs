@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
-    /*[Authorize]*/
+    [Authorize]
     public class PlantController : Controller
     {
         private PlantDbContext context;
@@ -20,7 +20,7 @@ namespace PlantItOut.Controllers
         }
 
         //GET 
-        /*[Authorize]*/
+        [Authorize]
         public IActionResult Index()
         {
             List<Plant> plants = context.Plants.ToList();
@@ -28,6 +28,7 @@ namespace PlantItOut.Controllers
         }
 
         /*[Authorize(Roles= "Admin")]*/
+        [Authorize]
         public IActionResult Add()
         {
             List<PlantCategory> plants = context.PlantCategories.ToList();
@@ -38,6 +39,7 @@ namespace PlantItOut.Controllers
 
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Add(AddPlantViewModel addPlantViewModel, string[] selectedTags)
         {
             if (ModelState.IsValid)
@@ -71,6 +73,7 @@ namespace PlantItOut.Controllers
         }
 
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Delete()
         {
             ViewBag.plants = context.Plants.ToList();
@@ -79,6 +82,7 @@ namespace PlantItOut.Controllers
 
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Delete(int[] plantIds)
         {
             foreach (int plantId in plantIds)
@@ -90,7 +94,7 @@ namespace PlantItOut.Controllers
             return Redirect("/Plant");
         }
 
-        /*[Authorize]*/
+        [Authorize]
         public IActionResult Detail(int id)
         {
             Plant plant = context.Plants

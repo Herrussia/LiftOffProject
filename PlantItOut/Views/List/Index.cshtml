@@ -3,6 +3,8 @@
 <div class="container body-content">
     <h2 class="centered">View Plants By Category</h2>
 
+    <a asp-controller="plantCategory" asp-action="Create">Create a New Category</a>
+
 <table class="table">
     <tr>
         <th>Beginner</th>
@@ -25,7 +27,7 @@
             {
                 @foreach (var plant in Model.IntermediateResults)
                 {
-                    <a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a>
+                    <a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a><br>
                 }
             }
         </td>
@@ -35,7 +37,7 @@
             {
                 @foreach (var plant in Model.ExpertResults)
                 {
-                    <a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a>
+                    <a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a><br>
                 }
             }
         </td>

@@ -1,4 +1,6 @@
-﻿namespace PlantItOut.Models
+﻿using System.Collections.Generic;
+
+namespace PlantItOut.Models
 {
     public class PlantTag
     {
@@ -6,7 +8,7 @@
         public Plant Plant { get; set; }
         public int TagId { get; set; }
         public Tag Tag { get; set; }
-
+        //public List<Tag> Tags { get; set; }
         public PlantTag()
         {
         }

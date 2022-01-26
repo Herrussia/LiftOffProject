@@ -26,17 +26,17 @@ else
             <th>
                 Description
             </th>
-            <th>
+            @*<th>
                 Category
-            </th>
+            </th>*@
         </tr>
     @foreach (var plant in Model)
         {
             <tr>
                 <td>@plant.Id</td>
-                <td><a asp-controller="Plants" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a></td>
+                <td><a asp-controller="Plant" asp-action="Detail" asp-route-id="@plant.Id">@plant.Name</a></td>
                 <td>@plant.Description</td>
-                <td>@plant.CategoryId</td>
+                @*<td>@plant.CategoryId</td>*@
             </tr>
         }
     </table>

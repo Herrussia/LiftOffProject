@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace PlantItOut.Controllers
 {
-    /*[Authorize]*/
+    [Authorize]
     public class TagController : Controller
     {
         private PlantDbContext context;
@@ -26,6 +26,7 @@ namespace PlantItOut.Controllers
         }
 
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Add()
         {
             Tag tag = new Tag();
@@ -34,6 +35,7 @@ namespace PlantItOut.Controllers
 
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Add(Tag tag)
         {
             if (ModelState.IsValid)
@@ -46,6 +48,7 @@ namespace PlantItOut.Controllers
         }
 
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult AddPlant(int id)
         {
             Plant thePlant = context.Plants.Find(id);
@@ -57,6 +60,7 @@ namespace PlantItOut.Controllers
 
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult AddPlant(AddPlantTagViewModel tagViewModel)
         {
             if (ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace PlantItOut.Controllers
                     .Where(pt => pt.PlantId == plantId)
                     .Where(pt => pt.TagId == tagId)
                     .ToList();
+
                 if (exsistingTags.Count == 0)
                 {
                     PlantTag plantTag = new PlantTag
@@ -78,7 +83,7 @@ namespace PlantItOut.Controllers
                     context.PlantTags.Add(plantTag);
                     context.SaveChanges();
                 }
-                return Redirect("/Plants/Detail" + plantId);
+                return Redirect("/Plant/Detail/" + plantId);
             }
             return View(tagViewModel);
         }
@@ -93,16 +98,27 @@ namespace PlantItOut.Controllers
 
             return View(plantTags);
         }*/
+        [Authorize]
+        public IActionResult Delete()
+        {
+            List<Tag> tags = context.Tags.ToList();
+            return View(tags);
+        }
 
+        [HttpPost]
+        [Authorize]
         public IActionResult Delete(int[] tagIds)
         {
-            foreach(int tagId in tagIds)
+            foreach (int tagId in tagIds)
             {
-                Tag tags = context.Tags.Find(tagId);
-                context.Tags.Remove(tags);
+                Tag tag = context.Tags.Find(tagId);
+                context.Tags.Remove(tag);
             }
             context.SaveChanges();
-            return View();
+
+            List<Tag> tagList = context.Tags.ToList();
+
+            return View("Index", tagList);
         }
     }
 }

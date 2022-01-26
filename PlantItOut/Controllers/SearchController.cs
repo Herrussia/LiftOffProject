@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
-    /*[Authorize]*/
+    [Authorize]
     public class SearchController : Controller
     {
         private PlantDbContext context;
@@ -28,37 +28,39 @@ namespace PlantItOut.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
         public IActionResult Results(string searchTerm, string[] selectedTags)
         {
             List<Plant> plants = context.Plants.ToList();
             List<Plant> plantResults = new List<Plant>();
             List<PlantDetailViewModel> displayPlants = new List<PlantDetailViewModel>();
+            List<PlantCategory> plantCategories = new List<PlantCategory>();
+            
 
-            if (string.IsNullOrEmpty(searchTerm))
+            /*if (searchTerm != null)
             {
                 foreach (Plant plant in plants)
                 {
                     if (plant.Name == searchTerm)
                     {
-                        Plant results = plant;
-                        plants.Add(results);
+                        plantResults.Add(plant);
                     }
                 }
-            }
-            else
+            }*/
+            if (selectedTags != null)
             {
                 foreach (string tag in selectedTags)
                 {
-                    List<PlantTag> tags = context.PlantTags
+                    List<PlantTag> plantTags = context.PlantTags
                         .Where(pt => pt.TagId == int.Parse(tag))
                         .ToList();
 
-                    foreach (PlantTag plantTag in tags)
+                    foreach (PlantTag plantTag in plantTags)
                     {
                         List<Plant> results = context.Plants
                             .Where(p => p.Id == plantTag.PlantId)
                             .ToList();
-                        foreach (Plant plant in plantResults)
+                        foreach (Plant plant in results)
                         {
                             if (!plantResults.Contains(plant)){
                                 plantResults.Add(plant);
@@ -66,10 +68,15 @@ namespace PlantItOut.Controllers
                         }
                     }
                 }
-                ViewBag.columns = ListController.ColumnChoices;
-                ViewBag.plants = displayPlants;
             }
-            ResultsViewModel viewModel = new ResultsViewModel(plantResults);
+            foreach (Plant plant in plantResults)
+            {
+                plantCategories = context.PlantCategories
+                    .Where(pc => pc.Id == plant.CategoryId)
+                    .ToList();
+            }
+
+            ResultsViewModel viewModel = new ResultsViewModel(plantResults, plantCategories);
             return View("Results", viewModel);
         }
     }

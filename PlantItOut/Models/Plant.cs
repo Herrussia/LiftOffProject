@@ -19,10 +19,11 @@ namespace PlantItOut.Models
         {
         }
 
-        public Plant(string name, string description, string imageLink)
+        public Plant(string name, string description, int id)
         {
             Name = name;
             Description = description;
+            Id = id;
             /*ImageLink = imageLink;*/
         }
 

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace PlantItOut.Controllers
 {
-    /*[Authorize]*/
+    [Authorize]
     public class PlantCategoryController : Controller
     {
         private PlantDbContext context;
@@ -27,6 +27,7 @@ namespace PlantItOut.Controllers
 
         [HttpGet]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult Create()
         {
             AddPlantCategoryViewModel addPlantCategoryViewModel = new AddPlantCategoryViewModel();
@@ -35,6 +36,7 @@ namespace PlantItOut.Controllers
 
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
+        [Authorize]
         public IActionResult ProcessCreatePlantCategoryForm(AddPlantCategoryViewModel addPlantCategoryViewModel)
         {
             if (ModelState.IsValid)
